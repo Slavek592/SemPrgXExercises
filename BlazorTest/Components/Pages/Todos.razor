@@ -1,0 +1,33 @@
+﻿@page "/todos"
+@rendermode InteractiveServer
+
+<PageTitle>TODOs</PageTitle>
+
+<h1>TODOs</h1>
+
+<p role="status">TODOs: @currentCount</p>
+
+@foreach (string todo in todos)
+{<p><button @onclick="() => Remove(todo)">Done</button>@todo</p>}
+
+<p><input type="text" @bind="input"/>
+<button @onclick="Add">Add</button></p>
+<div></div>
+
+@code {
+    private int currentCount = 0;
+    private string input = "";
+    private List<string> todos = new List<string>();
+
+    private void Add()
+    {
+        todos.Add(input);
+        input = "";
+        currentCount++;
+    }
+    private void Remove(string todo)
+    {
+        todos.Remove(todo);
+        currentCount--;
+    }
+}
